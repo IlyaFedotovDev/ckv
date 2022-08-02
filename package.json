@@ -1,0 +1,82 @@
+{
+    "name": "ckv",
+    "version": "1.0.0",
+    "description": "CKV - JavaScript library for displaying chromakey videos in the browser",
+    "author": "Ilia Fedotov",
+    "email": "fedotov.ilya.dev@gmail.com",
+    "license": "MIT",
+    "keywords": [
+        "chromakey",
+        "greenscreen",
+        "video",
+        "ckv",
+        "javascript",
+        "canvas"
+    ],
+    "main": "dist/ckv.js",
+    "module": "dist/ckv.esm.js",
+    "exports": {
+        "import": "./dist/ckv.esm.js",
+        "require": "./dist/ckv.js"
+    },
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist/"
+    ],
+    "homepage": "https://github.com/IlyaFedotovDev/ckv",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/IlyaFedotovDev/ckv.git"
+    },
+    "bugs": {
+        "url": "https://github.com/IlyaFedotovDev/ckv/issues"
+    },
+    "scripts": {
+        "start": "webpack server --env dev",
+        "watch": "webpack --watch --env dev",
+        "dev": "webpack --env dev",
+        "build": "rimraf \"./dist/*\" && webpack",
+        "test:dev": "webpack server --env test --env dev",
+        "test:build": "webpack server --env test",
+        "analysis:dev": "webpack --env dev --env stat",
+        "analysis:build-esm": "webpack --env stat --env esm",
+        "analysis:build-umd": "webpack --env stat",
+        "lint": "eslint . --fix --ext .js,.ts",
+        "format": "prettier . --write --ignore-unknown",
+        "prepublishOnly": "npm run build",
+        "prepare": "husky install"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.18.9",
+        "@babel/core": "^7.14.0",
+        "@babel/plugin-transform-runtime": "^7.13.15",
+        "@babel/preset-env": "^7.14.1",
+        "@babel/preset-typescript": "^7.18.6",
+        "@babel/runtime": "^7.14.0",
+        "@typescript-eslint/eslint-plugin": "^5.27.0",
+        "@typescript-eslint/parser": "^5.27.0",
+        "babel-loader": "^8.2.2",
+        "copy-webpack-plugin": "^11.0.0",
+        "eslint": "^8.17.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "eslint-webpack-plugin": "^3.1.1",
+        "html-webpack-plugin": "^5.3.1",
+        "husky": "^8.0.1",
+        "lint-staged": "^13.0.1",
+        "lodash": "^4.17.21",
+        "prettier": "^2.7.1",
+        "rimraf": "^3.0.2",
+        "ts-loader": "^9.3.1",
+        "tsconfig-paths-webpack-plugin": "^4.0.0",
+        "typescript": "^4.7.2",
+        "webpack": "^5.74.0",
+        "webpack-bundle-analyzer": "^4.4.1",
+        "webpack-cli": "^4.10.0",
+        "webpack-dev-server": "^4.9.3"
+    },
+    "lint-staged": {
+        "*.{js,ts}": "eslint --fix",
+        "**/*": "prettier --ignore-unknown --write"
+    }
+}
