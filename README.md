@@ -1,7 +1,5 @@
 # Javascript library for processing chromakey video in browser
 
----
-
 ## Installation
 
 ### NPM
@@ -43,10 +41,10 @@ ckVideo.play().then(()=> 'do something');
 
 ```typescript
 {
-    loop?: boolean // playback loop
-    mute?: boolean // playback mute
-    showOriginalIn?: string // selector where to show the original video
-    filter?: string // supports: ['Green']
+    loop?: boolean // playback loop. Default: false
+    mute?: boolean // playback mute. Default: false
+    showOriginalIn?: string // selector where to show the original video. Default: null
+    filter?: string // supports: ['Green']. Default: 'Green'
 }
 ```
 
@@ -75,15 +73,15 @@ Stop playback
 
 Installing a new video. Need to run again
 
-### setVolume(num: number): void
+### .setVolume(num: number): void
 
 num - range [0, 1]. Required option mute: false
 
-### seek(num: number): void
+### .seek(num: number): void
 
 num - range [0, 1]. Video rewind
 
-### destroy(): void
+### .destroy(): void
 
 Removes all event listeners and elements
 
