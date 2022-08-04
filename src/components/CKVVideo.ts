@@ -1,3 +1,5 @@
+import { checkArgument } from '@/util/checkArgument';
+
 interface ICKVVideo {
     newVideo(url: string, options?: ICKVVideoOptions): void;
     play(): void;
@@ -8,24 +10,33 @@ interface ICKVVideo {
 }
 
 export interface ICKVVideoOptions {
+    [index: string]: unknown;
     loop?: boolean;
     mute?: boolean;
-    showOriginalIn?: string;
+    showOriginalIn?: string | null;
 }
 
 export class CKVVideo implements ICKVVideo {
     readonly videoElement: HTMLVideoElement = document.createElement('video');
     loaded = false;
+    protected options: Required<ICKVVideoOptions> = {
+        loop: false,
+        mute: false,
+        showOriginalIn: null,
+    };
 
     constructor(url: string, options?: ICKVVideoOptions) {
+        checkArgument(url, true, 'string');
+        checkArgument(options, false, 'object');
+
         this.init();
 
         this.newVideo(url, options);
     }
 
     newVideo(url: string, options?: ICKVVideoOptions): void {
-        if (typeof url !== 'string')
-            throw new TypeError('The path to the video should be a string.');
+        checkArgument(url, true, 'string');
+        checkArgument(options, false, 'object');
 
         this.loaded = false;
 
@@ -38,7 +49,8 @@ export class CKVVideo implements ICKVVideo {
         );
 
         if (options) {
-            this.setOptions(options);
+            this.mergeOptions(options);
+            this.setOptions(this.options);
         }
 
         this.videoElement.src = url;
@@ -54,9 +66,13 @@ export class CKVVideo implements ICKVVideo {
     }
 
     setVolume(int: number): void {
+        checkArgument(int, true, 'number');
+
         this.videoElement.volume = int;
     }
     seek(num: number): void {
+        checkArgument(num, true, 'number');
+
         if (num > 1) {
             num = 1;
         } else if (num < 0) {
@@ -88,7 +104,23 @@ export class CKVVideo implements ICKVVideo {
         this.videoElement.className = 'CKVVideo';
     }
 
+    protected mergeOptions(options: ICKVVideoOptions) {
+        checkArgument(options, true, 'object');
+
+        const optKeys: string[] = Object.keys(this.options);
+
+        for (let index = 0; index < optKeys.length; index++) {
+            const key: string = optKeys[index];
+
+            if (key in options) {
+                this.options[key] = options[key];
+            }
+        }
+    }
+
     protected setOptions(options: ICKVVideoOptions): void {
+        checkArgument(options, true, 'object');
+
         if (options.loop) {
             this.videoElement.setAttribute('loop', '');
         } else {

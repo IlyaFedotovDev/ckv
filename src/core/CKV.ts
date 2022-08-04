@@ -1,5 +1,6 @@
 import { CKVCanvas, ICKVCanvasOptions } from '@/components/CKVCanvas';
 import { CKVVideo, ICKVVideoOptions } from '@/components/CKVVideo';
+import { checkArgument } from '@/util/checkArgument';
 
 interface ICKVOptions extends ICKVCanvasOptions, ICKVVideoOptions {}
 
@@ -61,12 +62,19 @@ export class CKV implements ICKV {
     }
 
     setVolume(num: number): void {
+        checkArgument(num, true, 'number');
+
         this.video.setVolume(num);
     }
     seek(num: number): void {
+        checkArgument(num, true, 'number');
+
         this.video.seek(num);
     }
     newVideo(url: string, options?: ICKVOptions): void {
+        checkArgument(url, true, 'string');
+        checkArgument(options, false, 'object');
+
         if (!this.video.videoElement.paused) {
             this.stop();
         }

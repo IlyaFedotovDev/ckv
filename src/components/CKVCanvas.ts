@@ -1,5 +1,6 @@
 import { debounce } from '../util/debounce';
 import { EventMemory } from '../util/eventMemory';
+import { checkArgument } from '@/util/checkArgument';
 
 import { IWorkerContext } from './workerContext/interfaces/IWorkerContext';
 import { Worker2DContext } from './workerContext/Worker2DContext';
@@ -24,8 +25,8 @@ export class CKVCanvas implements ICKVCanvas {
     protected readonly eventMemory: EventMemory = new EventMemory();
 
     constructor(selector: string, options?: ICKVCanvasOptions) {
-        if (typeof selector !== 'string')
-            throw new TypeError('Selector must be a string');
+        checkArgument(selector, true, 'string');
+        checkArgument(options, false, 'object');
 
         this.rootElement = document.querySelector(selector) as HTMLElement;
 
@@ -53,7 +54,7 @@ export class CKVCanvas implements ICKVCanvas {
     }
 
     draw(videoElement: HTMLVideoElement): void {
-        if (!videoElement) throw new Error('No video element');
+        checkArgument(videoElement, true);
 
         this.worker.filter(videoElement);
     }
@@ -73,10 +74,10 @@ export class CKVCanvas implements ICKVCanvas {
     }
 
     setOptions(options: ICKVCanvasOptions): void {
-        if (options) {
-            if (options.filter) {
-                this.worker.setFilter(options.filter);
-            }
+        checkArgument(options, true, 'object');
+
+        if (options.filter) {
+            this.worker.setFilter(options.filter);
         }
     }
 

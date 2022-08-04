@@ -1,6 +1,7 @@
 import { IWorkerContext } from './interfaces/IWorkerContext';
 import { CPUFilter } from '../filters/cpu/CPUFilter';
 import { CPUFilters } from '../filters/cpu/CPUFilters';
+import { checkArgument } from '@/util/checkArgument';
 
 export class Worker2DContext implements IWorkerContext {
     protected readonly canvasElement: HTMLCanvasElement;
@@ -17,6 +18,8 @@ export class Worker2DContext implements IWorkerContext {
     protected prevImageData: ImageData | null = null;
 
     constructor(canvas: HTMLCanvasElement) {
+        checkArgument(canvas, true, 'object');
+
         this.canvasElement = canvas;
         this.ctx = this.canvasElement.getContext(
             '2d',
@@ -28,6 +31,8 @@ export class Worker2DContext implements IWorkerContext {
     }
 
     setFilter(filter: string): void {
+        checkArgument(filter, true, 'string');
+
         if (CPUFilters[filter]) {
             this.filterer = CPUFilters[filter];
         } else {
@@ -36,6 +41,8 @@ export class Worker2DContext implements IWorkerContext {
     }
 
     filter(video: HTMLVideoElement): void {
+        checkArgument(video, true, 'object');
+
         this.videoElement = video;
         this.calcVideoPlacement();
 
@@ -106,6 +113,8 @@ export class Worker2DContext implements IWorkerContext {
     }
 
     protected filterLoop(imageData: ImageData): Promise<ImageData> {
+        checkArgument(imageData, true, 'object');
+
         const data = imageData.data;
         // 1920 * 1080 * 4 = 8294400 / 2 = 4147200
         const pixelByCycle = 4147200;

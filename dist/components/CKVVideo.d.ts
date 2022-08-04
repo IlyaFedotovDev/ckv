@@ -7,13 +7,15 @@ interface ICKVVideo {
     destroy(): void;
 }
 export interface ICKVVideoOptions {
+    [index: string]: unknown;
     loop?: boolean;
     mute?: boolean;
-    showOriginalIn?: string;
+    showOriginalIn?: string | null;
 }
 export declare class CKVVideo implements ICKVVideo {
     readonly videoElement: HTMLVideoElement;
     loaded: boolean;
+    protected options: Required<ICKVVideoOptions>;
     constructor(url: string, options?: ICKVVideoOptions);
     newVideo(url: string, options?: ICKVVideoOptions): void;
     play(): void;
@@ -24,6 +26,7 @@ export declare class CKVVideo implements ICKVVideo {
     protected removeVideoElement(): void;
     protected init(): void;
     protected initVideo(): void;
+    protected mergeOptions(options: ICKVVideoOptions): void;
     protected setOptions(options: ICKVVideoOptions): void;
 }
 export {};
