@@ -40,11 +40,11 @@ ckVideo.play().then(()=> 'do something');
 -   options(optional):
 
 ```typescript
-{
-    loop?: boolean // playback loop. Default: false
-    mute?: boolean // playback mute. Default: false
-    showOriginalIn?: string // selector where to show the original video. Default: null
-    filter?: string // supports: ['Green']. Default: 'Green'
+interface ICKVOptions {
+    loop?: boolean; // playback loop. Default: false
+    mute?: boolean; // playback mute. Default: false
+    showOriginalIn?: string; // selector where to show the original video. Default: null
+    filter?: string; // supports: ['Green']. Default: 'Green'
 }
 ```
 
