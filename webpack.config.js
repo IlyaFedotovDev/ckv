@@ -16,12 +16,12 @@ module.exports = (env) => {
     const isAnalisis = env.stat;
 
     function filename(ext) {
-        const e = ext ? ext : 'ext';
+        const e = ext ? ext : '[ext]';
         return isDev ? `[name].${e}` : `[name].[contenthash:8].${e}`;
     }
 
     function chunkFilename(ext) {
-        const e = ext ? ext : 'ext';
+        const e = ext ? ext : '[ext]';
         return isDev
             ? `[name].[id].chunk.${e}`
             : `[name].[id].[contenthash:8].chunk.${e}`;
