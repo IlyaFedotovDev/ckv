@@ -5,7 +5,7 @@
 ### NPM
 
 ```bash
-npm install -D ckv
+npm install ckv
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ const CKV = require('ckv');
 import CKV from ckv;
 
 const ckVideo = new CKV('.selector-where-show', 'path/to/video.mp4', {filter: 'Green', loop: true, mute: true});
-ckVideo.play().then(()=> 'do something');
+ckVideo.play().then(() => 'do something');
 ```
 
 ## API
