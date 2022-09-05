@@ -1,6 +1,6 @@
 {
     "name": "ckv",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "CKV - JavaScript library for displaying chromakey videos in the browser",
     "author": "Ilia Fedotov",
     "email": "fedotov.ilya.dev@gmail.com",
